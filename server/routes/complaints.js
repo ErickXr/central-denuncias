@@ -55,7 +55,11 @@ router.post('/', upload.array('attachments', 5), createLimiter, async (req, res)
                 storedName: a.storedName,
                 mimeType: a.mimeType
             }))
-        };// Notificação fire-and-forget
+        };
+
+        const saved = await store.createComplaint(complaint, req.files || []);
+
+        // Notificação fire-and-forget
         emailService.notifyNewComplaint(protocolId);
 
         res.status(201).json({ protocol: saved.id, message: 'Denúncia recebida com sucesso.' });
