@@ -1,0 +1,14 @@
+/* ============================================================================
+   CENTRAL DE DENÚNCIAS — GATTI — PAINEL ADMIN
+   Ajustes específicos (a maior parte dos estilos vem de ../../css/style.css)
+   ============================================================================ */
+
+code{
+  background: var(--paper-2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+}
+
+body.admin-page{ background: #fff; }

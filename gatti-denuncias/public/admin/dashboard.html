@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo — Gatti</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-page">
+
+  <div class="admin-topbar">
+    <a href="/" class="logo" style="font-size:19px;">GATTI<span>.</span></a>
+    <div class="who">
+      <span id="who-label">—</span>
+      <button class="logout-btn" id="logout-btn">Sair</button>
+    </div>
+  </div>
+
+  <div class="admin-shell">
+
+    <!-- LISTA -->
+    <aside class="admin-list">
+      <div class="admin-list-header">
+        <h2>Denúncias</h2>
+        <span class="sub" id="count-label">Carregando...</span>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="todas">Todas</button>
+        <button class="filter-tab" data-filter="recebida">Recebidas</button>
+        <button class="filter-tab" data-filter="em_analise">Em análise</button>
+        <button class="filter-tab" data-filter="respondida">Respondidas</button>
+        <button class="filter-tab" data-filter="concluida">Concluídas</button>
+      </div>
+      <div id="complaint-list"></div>
+    </aside>
+
+    <!-- DETALHE -->
+    <main class="admin-detail" id="detail-panel">
+      <div class="admin-detail-empty">Selecione uma denúncia na lista ao lado para ver os detalhes.</div>
+    </main>
+
+  </div>
+
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>

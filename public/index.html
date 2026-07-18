@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Denúncias | Gatti</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header-top">
+        <a href="/" class="brand">GATTI</a>
+        <nav class="nav-links">
+            <a href="/" class="active">Nova Denúncia</a>
+            <a href="/acompanhar">Acompanhar Protocolo</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div id="form-section">
+            <h1>Canal de Ética e Denúncias</h1>
+            <p>Este é um canal seguro e anônimo. Não registramos IPs e não pedimos dados de identificação.</p>
+
+            <form id="denuncia-form" class="card">
+                <div class="form-group">
+                    <label for="type">Qual o tipo da denúncia?</label>
+                    <select id="type" required>
+                        <option value="">Selecione...</option>
+                        <option value="assedio">Assédio Moral ou Sexual</option>
+                        <option value="fraude">Fraude ou Corrupção</option>
+                        <option value="seguranca">Segurança no Trabalho (NR-1)</option>
+                        <option value="conduta">Desvio de Conduta</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descreva a situação detalhadamente</label>
+                    <textarea id="description" placeholder="O que aconteceu? Onde? Quando? Quem está envolvido?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Anexar evidências (opcional)</label>
+                    <div class="file-upload">
+                        <span style="color: var(--gold); margin-bottom: 0.5rem;">📁 Clique ou arraste arquivos aqui</span>
+                        <span style="font-size: 0.8rem; color: var(--gray)">JPG, PNG, WEBP ou PDF. Máx 10MB/arquivo (até 6 arquivos)</span>
+                        <input type="file" id="attachments" multiple accept=".jpg,.jpeg,.png,.webp,.pdf">
+                    </div>
+                    <div id="file-list" class="file-list"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Crie uma senha de acesso</label>
+                    <p style="font-size: 0.8rem; margin-top: -0.2rem;">Guarde essa senha! Ela será necessária, junto com o protocolo, para você acompanhar a denúncia.</p>
+                    <input type="password" id="password" minlength="6" placeholder="Mínimo de 6 caracteres" required>
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn" style="width: 100%;">Enviar Denúncia Anônima</button>
+            </form>
+        </div>
+
+        <div id="success-section" class="hidden">
+            <h1>Denúncia Enviada</h1>
+            <p>Sua denúncia foi registrada com sucesso de forma anônima. Anote o número do seu protocolo e a senha que você acabou de criar. <strong style="color: var(--white);">Se você perder esses dados, não será possível recuperar o acesso.</strong></p>
+            
+            <div class="protocol-box">
+                <p>Seu Protocolo:</p>
+                <h3 id="protocol-display" class="mono">GTT-XXXXXX</h3>
+            </div>
+
+            <a href="/acompanhar" class="btn">Acompanhar Denúncia</a>
+        </div>
+    </main>
+
+    <script src="js/novo.js"></script>
+</body>
+</html>

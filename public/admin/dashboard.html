@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin | Gatti</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .dashboard-layout { display: flex; gap: 2rem; }
+        .sidebar { width: 250px; flex-shrink: 0; }
+        .content { flex-grow: 1; }
+        .nav-btn { display: block; width: 100%; text-align: left; padding: 1rem; background: var(--graphite); border: 1px solid var(--graphite-light); color: var(--white); cursor: pointer; transition: 0.2s; margin-bottom: 0.5rem; border-radius: var(--radius); }
+        .nav-btn.active { background: var(--gold); color: var(--black); font-weight: bold; }
+        .nav-btn:hover:not(.active) { background: var(--graphite-light); }
+        
+        /* Modal Style */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 100; }
+        .modal { background: var(--graphite); padding: 2rem; border-radius: var(--radius); width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--graphite-light); position: relative; }
+        .close-modal { position: absolute; top: 1rem; right: 1rem; background: transparent; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header class="header-top">
+        <div class="brand">GATTI ADMIN</div>
+        <div class="nav-links">
+            <span id="user-display" style="margin-right: 1rem; color: var(--gray);"></span>
+            <a href="#" id="logout-btn" style="color: var(--gold);">Sair</a>
+        </div>
+    </header>
+
+    <main class="container" style="max-width: 1200px;">
+        <div class="dashboard-layout">
+            <div class="sidebar">
+                <button class="nav-btn active" data-target="view-complaints">Denúncias</button>
+                <button class="nav-btn" data-target="view-team">Equipe</button>
+            </div>
+
+            <div class="content">
+                <!-- Denúncias View -->
+                <div id="view-complaints">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2>Denúncias Recebidas</h2>
+                        <button id="refresh-complaints" class="btn btn-secondary">Atualizar</button>
+                    </div>
+                    <div class="card" style="padding: 0; overflow-x: auto;">
+                        <table class="table" id="complaints-table">
+                            <thead>
+                                <tr>
+                                    <th>Protocolo</th>
+                                    <th>Tipo</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Linhas injetadas via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Equipe View -->
+                <div id="view-team" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2>Gerenciar Equipe</h2>
+                        <button id="btn-new-admin" class="btn">Novo Administrador</button>
+                    </div>
+                    
+                    <div id="form-new-admin" class="card hidden">
+                        <form id="add-admin-form">
+                            <div class="form-group">
+                                <label>Nome de Usuário</label>
+                                <input type="text" id="new-admin-user" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Senha (mín. 8 caracteres)</label>
+                                <input type="password" id="new-admin-pass" minlength="8" required>
+                            </div>
+                            <div class="flex">
+                                <button type="submit" class="btn">Salvar</button>
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('form-new-admin').classList.add('hidden')">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card" style="padding: 0;">
+                        <table class="table" id="team-table">
+                            <thead>
+                                <tr>
+                                    <th>Usuário</th>
+                                    <th>Data de Criação</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Linhas injetadas via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Detalhes Denúncia -->
+    <div id="modal-complaint" class="modal-overlay hidden">
+        <div class="modal">
+            <button class="close-modal">&times;</button>
+            <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin: 0; color: var(--gold);">Protocolo: <span id="m-protocol" class="mono"></span></h2>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <select id="m-status-select" style="padding: 0.3rem; width: auto;">
+                        <option value="recebida">Recebida</option>
+                        <option value="em_analise">Em Análise</option>
+                        <option value="respondida">Respondida</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                    <button id="btn-delete-complaint" class="btn" style="background: #dc3545; color: white; padding: 0.5rem 1rem;">Apagar</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                <div>
+                    <p><strong>Tipo:</strong> <span id="m-type"></span></p>
+                    <p><strong>Data:</strong> <span id="m-date"></span></p>
+                </div>
+                <div>
+                    <p><strong>Anexos:</strong></p>
+                    <ul id="m-attachments" style="list-style: none;"></ul>
+                </div>
+            </div>
+
+            <div style="background: var(--black); padding: 1rem; border-radius: 4px; margin-bottom: 2rem;">
+                <p><strong>Descrição Original:</strong></p>
+                <div id="m-description" style="white-space: pre-wrap; color: var(--white);"></div>
+            </div>
+
+            <h3>Mensagens</h3>
+            <div id="m-messages" class="messages-container" style="background: var(--black); padding: 1rem; border-radius: 4px; margin-top: 1rem;">
+                <!-- Mensagens -->
+            </div>
+
+            <form id="m-reply-form" style="margin-top: 1.5rem;">
+                <textarea id="m-reply-content" placeholder="Escreva uma resposta ao denunciante..." required style="min-height: 80px; width: 100%; margin-bottom: 1rem;"></textarea>
+                <button type="submit" class="btn">Enviar Resposta</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/admin/js/admin-dashboard.js"></script>
+</body>
+</html>

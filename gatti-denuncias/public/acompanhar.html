@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acompanhar denúncia — Gatti</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">GATTI<span>.</span></a>
+    <div class="header-links">
+      <a class="site-link" href="/">← Nova denúncia</a>
+    </div>
+  </header>
+
+  <section class="hero" style="padding-bottom: 72px;">
+    <div class="hero-inner">
+      <span class="eyebrow">Acompanhamento</span>
+      <h1>Veja o andamento da sua denúncia.</h1>
+      <p class="lead">Informe o protocolo e a senha criados no momento do envio.</p>
+    </div>
+  </section>
+
+  <section class="form-section narrow" id="login-section">
+    <div class="card login-card">
+      <div id="login-view">
+        <div class="card-head">
+          <span class="eyebrow">Login</span>
+          <h2>Acessar minha denúncia</h2>
+          <p>Use o protocolo (ex: GTT-482913) e a senha que você criou no envio.</p>
+        </div>
+        <form id="login-form">
+          <div class="field">
+            <label class="field-label" for="protocol">Protocolo<span class="req">*</span></label>
+            <input type="text" id="protocol" placeholder="GTT-000000" required autocomplete="off">
+          </div>
+          <div class="field">
+            <label class="field-label" for="senha">Senha<span class="req">*</span></label>
+            <input type="password" id="senha" placeholder="Sua senha de acompanhamento" required>
+          </div>
+          <div class="form-error" id="login-error"></div>
+          <div class="submit-row">
+            <button type="submit" class="submit-btn" id="login-btn">
+              <span class="spinner"></span>
+              <span class="btn-label">Entrar</span>
+              <span class="dot"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="status-section" style="display:none;">
+    <div class="card">
+      <div class="detail-head">
+        <div>
+          <span class="eyebrow" id="status-protocol">GTT-000000</span>
+          <h2 id="status-type">Tipo de ocorrência</h2>
+          <span class="submit-note" id="status-date"></span>
+        </div>
+        <span class="status-pill" id="status-pill">—</span>
+      </div>
+
+      <div class="detail-block">
+        <h3>Descrição enviada</h3>
+        <p class="detail-description" id="status-description"></p>
+      </div>
+
+      <div class="detail-block" id="status-attachments-block" style="display:none;">
+        <h3>Anexos enviados</h3>
+        <p class="submit-note" id="status-attachments-list"></p>
+      </div>
+
+      <div class="detail-block">
+        <h3>Conversa com a psicóloga responsável</h3>
+        <div class="thread" id="thread"></div>
+
+        <form class="reply-box" id="reply-form">
+          <textarea id="reply-content" placeholder="Escreva uma mensagem de acompanhamento..." required minlength="2"></textarea>
+          <div class="form-error" id="reply-error"></div>
+          <div class="submit-row">
+            <button type="submit" class="submit-btn" id="reply-btn">
+              <span class="spinner"></span>
+              <span class="btn-label">Enviar mensagem</span>
+              <span class="dot"></span>
+            </button>
+            <button type="button" class="submit-btn secondary" id="logout-btn">Sair</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Gatti Veículos — Canal de Ética e Denúncias, em conformidade com a NR-1.</span>
+      <a href="https://gattiveiculos.com.br" target="_blank" rel="noopener">Voltar ao site</a>
+    </div>
+  </footer>
+
+<script src="js/acompanhar.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central de Denúncias — Gatti</title>
+<meta name="description" content="Canal de denúncias anônimas da Gatti Veículos, em conformidade com a NR-1.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">GATTI<span>.</span></a>
+    <div class="header-links">
+      <a class="site-link" href="/acompanhar">Acompanhar denúncia →</a>
+      <a class="site-link" href="https://gattiveiculos.com.br" target="_blank" rel="noopener">gattiveiculos.com.br ↗</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Canal de Ética &amp; Denúncias — NR-1</span>
+      <h1>Um espaço seguro para dizer o que precisa ser dito.</h1>
+      <p class="lead">A Gatti mantém este canal para que qualquer colaborador possa relatar riscos ocupacionais, assédio ou condutas inadequadas — sem se identificar, sem receio e sem burocracia. A denúncia é acompanhada pela psicóloga organizacional responsável.</p>
+
+      <div class="trust-strip">
+        <div class="trust-item">
+          <span class="num">01</span>
+          <div class="label">Anônimo</div>
+          <div class="sub">Nome, e-mail e telefone não são solicitados</div>
+        </div>
+        <div class="trust-item">
+          <span class="num">02</span>
+          <div class="label">Acompanhável</div>
+          <div class="sub">Protocolo + senha para ver o andamento do caso</div>
+        </div>
+        <div class="trust-item">
+          <span class="num">03</span>
+          <div class="label">Conforme NR-1</div>
+          <div class="sub">Parte do gerenciamento de riscos ocupacionais</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section" id="denuncia">
+    <div class="card">
+
+      <!-- FORM VIEW -->
+      <div id="form-view">
+        <div class="card-head">
+          <span class="eyebrow">Registrar denúncia</span>
+          <h2>Conte-nos o que aconteceu</h2>
+          <p>Preencha os campos abaixo com o máximo de detalhes possível — datas, locais e envolvidos ajudam na apuração do caso.</p>
+        </div>
+
+        <form id="report-form">
+          <div class="field">
+            <label class="field-label" for="tipo">Tipo de ocorrência<span class="req">*</span></label>
+            <select id="tipo" name="tipo" required>
+              <option value="" disabled selected>Selecione uma categoria</option>
+              <option value="Assédio moral ou sexual">Assédio moral ou sexual</option>
+              <option value="Segurança do Trabalho / NR-1">Segurança do Trabalho / NR-1</option>
+              <option value="Discriminação">Discriminação</option>
+              <option value="Conflito de interesses">Conflito de interesses</option>
+              <option value="Uso indevido de recursos da empresa">Uso indevido de recursos da empresa</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="descricao">Descrição dos fatos<span class="req">*</span></label>
+            <span class="field-hint">Inclua data aproximada, local e pessoas envolvidas, se souber.</span>
+            <textarea id="descricao" name="descricao" required minlength="20" maxlength="4000" placeholder="Descreva o ocorrido com o máximo de detalhes possível..."></textarea>
+            <span class="char-count"><span id="char-current">0</span>/4000</span>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="anexos">Anexar provas (opcional)</label>
+            <span class="field-hint">Imagens ou PDFs — até 10 MB por arquivo, até 6 arquivos.</span>
+            <div class="dropzone" id="dropzone">
+              <input type="file" id="anexos" name="anexos" multiple accept=".jpg,.jpeg,.png,.pdf,.webp">
+              <div class="dz-title">Arraste arquivos aqui ou clique para selecionar</div>
+              <div class="dz-sub">JPG, PNG ou PDF</div>
+            </div>
+            <div id="file-list"></div>
+          </div>
+
+          <div class="anon-box">
+            <label class="checkbox-wrap">
+              <input type="checkbox" id="anonimo" name="anonimo" checked>
+              <span class="checkbox-visual">
+                <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.2 8.2L11 1" stroke="#d8b978" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </label>
+            <div class="anon-text">
+              <strong>Desejo manter minha denúncia 100% anônima</strong>
+              <p>Nenhum dado de identificação é solicitado neste formulário. Se preferir deixar um contato, faça isso apenas dentro da descrição.</p>
+            </div>
+          </div>
+
+          <div class="password-box">
+            <div class="field">
+              <label class="field-label" for="senha">Crie uma senha de acompanhamento<span class="req">*</span></label>
+              <span class="field-hint">Você vai usar o protocolo + esta senha para acompanhar sua denúncia depois. Mínimo de 6 caracteres.</span>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <input type="password" id="senha" name="senha" minlength="6" required placeholder="Crie uma senha">
+              </div>
+              <div class="field">
+                <input type="password" id="senha-confirma" required placeholder="Confirme a senha">
+              </div>
+            </div>
+            <div class="warn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.3 3.9 2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke="#55555b" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span>Não use uma senha que você usa em outros lugares. Como não pedimos e-mail, não há como recuperar essa senha caso você a esqueça — anote-a junto com o protocolo.</span>
+            </div>
+          </div>
+
+          <div class="form-error" id="form-error"></div>
+
+          <div class="submit-row">
+            <button type="submit" class="submit-btn" id="submit-btn">
+              <span class="spinner"></span>
+              <span class="btn-label">Enviar denúncia</span>
+              <span class="dot"></span>
+            </button>
+            <span class="submit-note">Seu relato será analisado pela psicóloga organizacional responsável.</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- SUCCESS VIEW -->
+      <div id="success-view" class="success-view">
+        <div class="seal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12.5L9.5 18L20 6" stroke="#b8924f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Denúncia recebida.</h2>
+        <p>Obrigado por confiar neste canal. Guarde o protocolo e a senha abaixo — são a única forma de acompanhar o andamento do seu caso.</p>
+        <div class="protocol">
+          <span class="eyebrow">Protocolo de acompanhamento</span>
+          <span class="code" id="protocol-code">GTT-000000</span>
+          <span class="code-hint">Guarde este código junto com a senha que você criou.</span>
+        </div>
+        <div class="success-actions">
+          <a href="/acompanhar">Acompanhar esta denúncia →</a>
+          <a id="new-report">Registrar outra denúncia</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Gatti Veículos — Canal de Ética e Denúncias, em conformidade com a NR-1.</span>
+      <a href="https://gattiveiculos.com.br" target="_blank" rel="noopener">Voltar ao site</a>
+    </div>
+  </footer>
+
+<script src="js/novo.js"></script>
+</body>
+</html>

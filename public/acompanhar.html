@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhar Protocolo | Gatti</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header-top">
+        <a href="/" class="brand">GATTI</a>
+        <nav class="nav-links">
+            <a href="/">Nova Denúncia</a>
+            <a href="/acompanhar" class="active">Acompanhar Protocolo</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Tela de Login -->
+        <div id="login-section">
+            <h1>Acompanhar Denúncia</h1>
+            <p>Insira seu protocolo e senha gerados no momento da denúncia.</p>
+
+            <form id="login-form" class="card">
+                <div class="form-group">
+                    <label for="protocol">Protocolo</label>
+                    <input type="text" id="protocol" class="mono" placeholder="GTT-XXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Tela do Protocolo -->
+        <div id="protocol-section" class="hidden">
+            <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2>Protocolo: <span id="display-protocol" class="mono" style="color: var(--gold);"></span></h2>
+                <span id="display-status" class="badge"></span>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 1rem; color: var(--gold);">Sua Denúncia</h3>
+                <p><strong>Tipo:</strong> <span id="display-type" style="color: var(--white);"></span></p>
+                <p><strong>Data:</strong> <span id="display-date" style="color: var(--white);"></span></p>
+                <p style="margin-top: 1rem;"><strong>Descrição:</strong></p>
+                <div id="display-description" style="background: var(--black); padding: 1rem; border-radius: 4px; border: 1px solid var(--graphite-light); color: var(--white); white-space: pre-wrap;"></div>
+            </div>
+
+            <!-- Interações / Mensagens -->
+            <h3>Mensagens</h3>
+            <div id="messages-container" class="messages-container card" style="margin-top: 1rem;">
+                <!-- Mensagens renderizadas aqui -->
+            </div>
+
+            <form id="message-form" class="card">
+                <div class="form-group">
+                    <label for="message-content">Enviar Nova Mensagem ou Informação</label>
+                    <textarea id="message-content" placeholder="Digite sua mensagem para a equipe..." required style="min-height: 80px;"></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar Mensagem</button>
+            </form>
+            
+            <button id="logout-btn" class="btn btn-secondary mt-2" style="width: 100%;">Sair / Fechar Sessão</button>
+        </div>
+    </main>
+
+    <script src="js/acompanhar.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo — Gatti</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">GATTI<span>.</span></a>
+    <div class="header-links">
+      <a class="site-link" href="/">← Voltar ao canal de denúncias</a>
+    </div>
+  </header>
+
+  <section class="hero" style="padding-bottom: 72px;">
+    <div class="hero-inner">
+      <span class="eyebrow">Acesso restrito</span>
+      <h1>Painel administrativo.</h1>
+      <p class="lead">Área exclusiva da psicóloga organizacional responsável pela apuração das denúncias.</p>
+    </div>
+  </section>
+
+  <section class="form-section narrow">
+    <div class="card login-card">
+      <div class="card-head">
+        <span class="eyebrow">Login</span>
+        <h2>Entrar no painel</h2>
+        <p>Use as credenciais criadas com o comando <code>npm run criar-admin</code>.</p>
+      </div>
+      <form id="admin-login-form">
+        <div class="field">
+          <label class="field-label" for="username">Usuário<span class="req">*</span></label>
+          <input type="text" id="username" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label class="field-label" for="senha">Senha<span class="req">*</span></label>
+          <input type="password" id="senha" required autocomplete="current-password">
+        </div>
+        <div class="form-error" id="login-error"></div>
+        <div class="submit-row">
+          <button type="submit" class="submit-btn" id="login-btn">
+            <span class="spinner"></span>
+            <span class="btn-label">Entrar</span>
+            <span class="dot"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Gatti Veículos — Painel administrativo interno.</span>
+    </div>
+  </footer>
+
+<script src="js/admin-login.js"></script>
+</body>
+</html>
