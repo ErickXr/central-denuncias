@@ -67,12 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const department = document.getElementById('department').value;
         const description = document.getElementById('description').value;
         const password = document.getElementById('password').value;
-        const passwordConfirm = document.getElementById('password-confirm').value;
-
-        if (password !== passwordConfirm) {
-            alert('As senhas não coincidem!');
-            return;
-        }
 
         if (password.length < 6) {
             alert('A senha deve ter no mínimo 6 caracteres.');
