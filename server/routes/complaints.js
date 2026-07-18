@@ -22,32 +22,40 @@ const messageLimiter = rateLimit({
     message: { error: 'Limite de mensagens atingido, aguarde antes de enviar mais.' }
 });
 
-// Criar denúncia
-router.post('/', createLimiter, upload.array('anexos'), async (req, res) => {
+// Rota: Criar nova denúncia (com anexos)
+router.post('/', upload.array('attachments', 5), createLimiter, async (req, res) => {
     try {
-        const { password, type, description } = req.body;
-        
-        if (!password || password.length < 6) {
-            return res.status(400).json({ error: 'Senha deve ter no mínimo 6 caracteres.' });
+        const { type, description, password, department } = req.body;
+
+        if (!type || !description || !password || password.length < 6) {
+            return res.status(400).json({ error: 'Dados inválidos. A senha deve ter no mínimo 6 caracteres.' });
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
-        const protocolId = `GTT-${Math.floor(100000 + Math.random() * 900000)}`;
+        const protocolId = generateProtocol();
 
-        const newComplaint = {
+        const attachments = req.files ? req.files.map(f => ({
+            originalName: f.originalname,
+            storedName: f.filename,
+            mimeType: f.mimetype,
+            size: f.size,
+            buffer: f.buffer // Se for MemoryStorage (MongoDB) o buffer existe
+        })) : [];
+
+        const complaint = {
             id: protocolId,
-            passwordHash,
-            type: type || 'outros',
+            type,
+            department: department || null,
             description,
-            anonymous: true,
+            passwordHash,
             status: 'recebida',
             createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-        };
-
-        const saved = await store.createComplaint(newComplaint, req.files || []);
-        
-        // Notificação fire-and-forget
+            attachments: attachments.map(a => ({
+                originalName: a.originalName,
+                storedName: a.storedName,
+                mimeType: a.mimeType
+            }))
+        };// Notificação fire-and-forget
         emailService.notifyNewComplaint(protocolId);
 
         res.status(201).json({ protocol: saved.id, message: 'Denúncia recebida com sucesso.' });

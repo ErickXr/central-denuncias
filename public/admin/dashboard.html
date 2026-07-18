@@ -32,6 +32,7 @@
         <div class="dashboard-layout">
             <div class="sidebar">
                 <button class="nav-btn active" data-target="view-complaints">Denúncias</button>
+                <button class="nav-btn" data-target="view-stats">Estatísticas</button>
                 <button class="nav-btn" data-target="view-team">Equipe</button>
             </div>
 
@@ -56,6 +57,18 @@
                                 <!-- Linhas injetadas via JS -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- Estatísticas View -->
+                <div id="view-stats" class="hidden">
+                    <div style="margin-bottom: 2rem;">
+                        <h2>Visão Geral de Denúncias</h2>
+                        <p style="color: var(--gray);">Acompanhe o volume de ocorrências por departamento.</p>
+                    </div>
+                    
+                    <div class="card" style="display: flex; justify-content: center; align-items: center; min-height: 400px;">
+                        <canvas id="deptChart" style="max-height: 400px;"></canvas>
                     </div>
                 </div>
 
@@ -119,16 +132,16 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                <div>
-                    <p><strong>Tipo:</strong> <span id="m-type"></span></p>
-                    <p><strong>Data:</strong> <span id="m-date"></span></p>
+                <div class="complaint-details" style="margin-top: 1rem;">
+                    <p><strong>Protocolo:</strong> <span id="m-protocol" class="mono">-</span></p>
+                    <p><strong>Tipo:</strong> <span id="m-type">-</span></p>
+                    <p><strong>Departamento:</strong> <span id="m-department">-</span></p>
+                    <p><strong>Data:</strong> <span id="m-date">-</span></p>
                 </div>
                 <div>
                     <p><strong>Anexos:</strong></p>
                     <ul id="m-attachments" style="list-style: none;"></ul>
                 </div>
-            </div>
 
             <div style="background: var(--black); padding: 1rem; border-radius: 4px; margin-bottom: 2rem;">
                 <p><strong>Descrição Original:</strong></p>
@@ -147,6 +160,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/admin/js/admin-dashboard.js"></script>
 </body>
 </html>

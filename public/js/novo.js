@@ -4,7 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileList = document.getElementById('file-list');
     const submitBtn = document.getElementById('submit-btn');
 
+    const hasDeptCheckbox = document.getElementById('has-department');
+    const deptGroup = document.getElementById('department-group');
+
     let selectedFiles = [];
+
+    hasDeptCheckbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            deptGroup.classList.remove('hidden');
+        } else {
+            deptGroup.classList.add('hidden');
+            document.getElementById('department').value = '';
+        }
+    });
 
     fileInput.addEventListener('change', (e) => {
         const newFiles = Array.from(e.target.files);
@@ -52,11 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         const type = document.getElementById('type').value;
+        const department = document.getElementById('department').value;
         const description = document.getElementById('description').value;
         const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('password-confirm').value;
+
+        if (password !== passwordConfirm) {
+            alert('As senhas não coincidem!');
+            return;
+        }
 
         if (password.length < 6) {
             alert('A senha deve ter no mínimo 6 caracteres.');
+            return;
+        }
+
+        if (hasDeptCheckbox.checked && !department) {
+            alert('Por favor, selecione o departamento.');
             return;
         }
 
@@ -65,6 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('type', type);
+        if (hasDeptCheckbox.checked && department) {
+            formData.append('department', department);
+        }
         formData.append('description', description);
         formData.append('password', password);
 

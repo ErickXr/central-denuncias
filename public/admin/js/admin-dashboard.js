@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return fetch(url, options);
     };
 
+    let myChart = null;
+
     // Navegação de abas
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -15,12 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.classList.add('active');
             
             document.getElementById('view-complaints').classList.add('hidden');
+            document.getElementById('view-stats').classList.add('hidden');
             document.getElementById('view-team').classList.add('hidden');
             
             const target = e.target.getAttribute('data-target');
             document.getElementById(target).classList.remove('hidden');
 
             if (target === 'view-complaints') loadComplaints();
+            if (target === 'view-stats') loadComplaints(); // carrega os dados atualizados para o gráfico
             if (target === 'view-team') loadTeam();
         });
     });
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const data = await res.json();
             renderComplaints(data);
+            renderStats(data);
         } catch (error) {
             console.error(error);
         }
@@ -60,6 +65,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${new Date(c.createdAt).toLocaleDateString('pt-BR')}</td>
             </tr>
         `).join('');
+    }
+
+    function renderStats(complaints) {
+        // Filtra denúncias que possuem um departamento atribuído
+        const withDept = complaints.filter(c => c.department && c.department.trim() !== '');
+        
+        // Conta as ocorrências por departamento
+        const counts = {};
+        withDept.forEach(c => {
+            counts[c.department] = (counts[c.department] || 0) + 1;
+        });
+
+        const labels = Object.keys(counts);
+        const dataValues = Object.values(counts);
+
+        const ctx = document.getElementById('deptChart').getContext('2d');
+
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        if (labels.length === 0) {
+            // Se não houver dados, destrói e retorna
+            return;
+        }
+
+        Chart.defaults.color = '#888';
+        Chart.defaults.font.family = 'Inter, sans-serif';
+
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Denúncias',
+                    data: dataValues,
+                    backgroundColor: [
+                        '#b8924f', // Dourado Gatti
+                        '#444444', // Grafite
+                        '#ffffff', // Branco
+                        '#ff6b6b', // Vermelho suave
+                        '#4ecdc4', // Turquesa
+                        '#45b7d1', // Azul claro
+                        '#96ceb4', // Verde pastel
+                        '#ffeead'  // Amarelo pastel
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#1e1e1e' // Cor de fundo do painel
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: '#ffffff' }
+                    }
+                }
+            }
+        });
     }
 
     // Modal Denúncia

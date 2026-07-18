@@ -56,10 +56,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderProtocol(complaint, messages) {
+        document.getElementById('r-status').className = `badge badge-${complaint.status}`;
+        document.getElementById('r-type').textContent = complaint.type.toUpperCase();
+        document.getElementById('r-department').textContent = complaint.department || 'Não especificado';
+        document.getElementById('r-date').textContent = new Date(complaint.createdAt).toLocaleString('pt-BR');
+        document.getElementById('r-description').textContent = complaint.description;
+
         document.getElementById('display-protocol').textContent = complaint.id;
-        document.getElementById('display-type').textContent = complaint.type.toUpperCase();
-        document.getElementById('display-date').textContent = new Date(complaint.createdAt).toLocaleString('pt-BR');
-        document.getElementById('display-description').textContent = complaint.description;
 
         const statusBadge = document.getElementById('display-status');
         statusBadge.textContent = complaint.status.replace('_', ' ');
