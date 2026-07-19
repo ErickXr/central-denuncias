@@ -32,7 +32,7 @@ router.post('/', upload.array('attachments', 5), createLimiter, async (req, res)
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
-        const protocolId = generateProtocol();
+        const protocolId = `GTT-${Math.floor(100000 + Math.random() * 900000)}`;
 
         const attachments = req.files ? req.files.map(f => ({
             originalName: f.originalname,
