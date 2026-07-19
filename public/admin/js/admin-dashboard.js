@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             document.getElementById('m-protocol').textContent = data.complaint.id;
             document.getElementById('m-type').textContent = data.complaint.type.toUpperCase();
+            document.getElementById('m-department').textContent = data.complaint.department || 'Não especificado';
             document.getElementById('m-date').textContent = new Date(data.complaint.createdAt).toLocaleString('pt-BR');
             document.getElementById('m-description').textContent = data.complaint.description;
             document.getElementById('m-status-select').value = data.complaint.status;
