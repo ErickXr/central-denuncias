@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const basicAuth = require('express-basic-auth');
 
 const app = express();
+app.set('trust proxy', 1); // Essencial para o Render repassar o IP real do usuário
 const PORT = process.env.PORT || 3000;
 
 app.use(helmet({ contentSecurityPolicy: false }));
